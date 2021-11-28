@@ -1,4 +1,16 @@
-use lobsterdb
+// db.createUser({
+//   user: 'mongo',
+//   pwd: 'mongo',
+//   roles: [
+//     {
+//       role: 'readWrite',
+//       db: 'lobsterdb',
+//     },
+//   ],
+// });
+
+db = new Mongo().getDB("lobsterdb");
+db.createCollection('users', { capped: false });
 
 db.users.insertMany([
 {
@@ -36,4 +48,6 @@ db.users.insertMany([
  "Username": "Pyro",
  "Password": "Pyro"
 }
-])
+]);
+
+db.users.find().forEach(printjson);
