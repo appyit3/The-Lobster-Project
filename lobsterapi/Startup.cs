@@ -26,6 +26,7 @@ namespace Lobsterapi
             services.AddCors();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IDatabaseContext, DatabaseContext>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

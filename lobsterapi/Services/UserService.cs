@@ -21,22 +21,26 @@ namespace Lobsterapi.Services
 
     public class UserService : IUserService
     {
-        // users hardcoded for simplicity, store in a db with hashed passwords in production applications
-        private List<User> _users = new List<User>
-        {
-            new User { Id = 1, Username = "test", Password = "test" }
-        };
-
+        private IDatabaseContext _dbContext;
         private readonly AppSettings _appSettings;
+        List<User> _users;
 
-        public UserService(IOptions<AppSettings> appSettings)
+        public UserService(IOptions<AppSettings> appSettings, IDatabaseContext dbContext)
         {
             _appSettings = appSettings.Value;
+            _dbContext = dbContext;
+            _users = _dbContext.Users;
         }
+
+        //private List<User> _users = _dbContext.Users; 
+        // new List<User>
+        // {
+        //     new User { Id = 1, Username = "test", Password = "test" }
+        // };
 
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
         {
-            var user = _users.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
+            var user = _dbContext.Users.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
 
             // return null if user not found
             if (user == null) return null;

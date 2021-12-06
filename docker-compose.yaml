@@ -1,0 +1,42 @@
+version: "3"
+services: 
+    mongodbsvc:
+        image: lobmongo
+        build: 
+            context: ./database
+            dockerfile: Dockerfile
+        ports: 
+            - 27017:27017
+        volumes:
+            - /database/mongodata:/data/db
+        networks:
+            - demo-network
+    # mongo-express:
+    #     image: mongo-express
+    #     restart: always
+    #     ports:
+    #       - 8081:8081
+    #     depends_on:
+    #       - mongodbsvc
+    websvc:
+        image: lobsterapi
+        build:
+            context: ./lobsterapi
+            dockerfile: Dockerfile
+        ports: 
+            - 3000:3000
+        networks:
+            - demo-network
+    clientsvc:
+        image: lobsterweb
+        build:
+            context: ./lobsterweb
+            dockerfile: Dockerfile
+        ports: 
+            - 4000:80
+        networks:
+            - demo-network
+    
+networks:
+  demo-network:
+    driver: bridge
