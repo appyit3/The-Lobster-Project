@@ -44,6 +44,8 @@ namespace Lobsterapi
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Lobsterapi v1"));
             }
 
+            app.UsePathBase("/api");
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
