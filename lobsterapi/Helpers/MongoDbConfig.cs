@@ -9,7 +9,7 @@ namespace Lobsterapi.Helpers
         {
             get 
             {
-                return $@"mongodb://{Host}:{Port}";
+                return "mongodb://localhost:27017/lobsterdb";
             }
         }
     }

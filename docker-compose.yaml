@@ -1,7 +1,8 @@
 version: "3"
 services: 
-    mongodbsvc:
+    mongodb:
         image: lobmongo
+        container_name: mongodb
         build: 
             context: ./database
             dockerfile: Dockerfile
@@ -24,7 +25,7 @@ services:
             context: ./lobsterapi
             dockerfile: Dockerfile
         ports: 
-            - 3000:3000
+            - 27000:3000
         networks:
             - demo-network
     clientsvc:
@@ -33,7 +34,7 @@ services:
             context: ./lobsterweb
             dockerfile: Dockerfile
         ports: 
-            - 4000:80
+            - 28000:80
         networks:
             - demo-network
     

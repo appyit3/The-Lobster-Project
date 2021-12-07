@@ -19,10 +19,9 @@ namespace Lobsterapi.Helpers
 
         public DatabaseContext(MongoDBConfig config)
         {
-            _appSettings = appSettings.Value;
-            var settings = MongoClientSettings.FromConnectionString(_appSettings.ConnectionString);
+            var settings = MongoClientSettings.FromConnectionString(config.ConnectionString);
             settings.SslSettings = new SslSettings() { EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12 };
-            var client = new MongoClient(config.ConnectionString);
+            var client = new MongoClient(settings);
             _db = client.GetDatabase(config.Database);   
         }
         public IMongoCollection<User> Users => _db.GetCollection<User>("Users");

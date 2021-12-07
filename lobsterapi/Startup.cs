@@ -26,10 +26,12 @@ namespace Lobsterapi
             services.AddCors();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
-            //Database settings
+            //Database access
             var config = new DatabaseConfig();
             Configuration.Bind(config);
             var databaseContext = new DatabaseContext(config.MongoDB);
+            var repo = new DatabaseRepository(databaseContext);
+            services.AddSingleton<IDatabaseRepository>(repo);
 
             services.AddScoped<IUserService, UserService>();
             services.AddControllers();

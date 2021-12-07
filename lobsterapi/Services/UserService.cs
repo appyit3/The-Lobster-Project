@@ -21,15 +21,15 @@ namespace Lobsterapi.Services
 
     public class UserService : IUserService
     {
-        private IDatabaseContext _dbContext;
+        private readonly IDatabaseRepository _repo;
         private readonly AppSettings _appSettings;
         List<User> _users;
 
-        public UserService(IOptions<AppSettings> appSettings, IDatabaseContext dbContext)
+        public UserService(IOptions<AppSettings> appSettings, IDatabaseRepository repo)
         {
             _appSettings = appSettings.Value;
-            _dbContext = dbContext;
-            _users = _dbContext.Users;
+            _repo = repo;
+            _users = repo.GetAllUsers().ToList();
         }
 
         //private List<User> _users = _dbContext.Users; 
@@ -40,8 +40,8 @@ namespace Lobsterapi.Services
 
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
         {
-            var user = _dbContext.Users.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
-
+            Console.WriteLine("first user - {0}", _users.First().Username);
+            var user = _users.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
             // return null if user not found
             if (user == null) return null;
 
