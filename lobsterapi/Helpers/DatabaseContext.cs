@@ -10,23 +10,21 @@ namespace Lobsterapi.Helpers
 {
     public interface IDatabaseContext
     {
-        List<User> Users { get; }
+        IMongoCollection<User> Users { get; }
     }
 
     public class DatabaseContext: IDatabaseContext
     {
         private readonly IMongoDatabase _db;
-        private readonly AppSettings _appSettings;
 
-        public DatabaseContext(IOptions<AppSettings> appSettings)
+        public DatabaseContext(MongoDBConfig config)
         {
             _appSettings = appSettings.Value;
             var settings = MongoClientSettings.FromConnectionString(_appSettings.ConnectionString);
             settings.SslSettings = new SslSettings() { EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12 };
-            // settings.Server = new MongoServerAddress(_appSettings.ConnectionString);
-            var client = new MongoClient(settings);
-            _db = client.GetDatabase(_appSettings.Database);   
+            var client = new MongoClient(config.ConnectionString);
+            _db = client.GetDatabase(config.Database);   
         }
-        public List<User> Users => _db.GetCollection<User>("Users").AsQueryable<User>().ToList();
+        public IMongoCollection<User> Users => _db.GetCollection<User>("Users");
     }
 }

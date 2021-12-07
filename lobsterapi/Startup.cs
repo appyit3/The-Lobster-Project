@@ -22,12 +22,16 @@ namespace Lobsterapi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //added
+            //added cors for localhost & cross origin development.
             services.AddCors();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IDatabaseContext, DatabaseContext>();
 
+            //Database settings
+            var config = new DatabaseConfig();
+            Configuration.Bind(config);
+            var databaseContext = new DatabaseContext(config.MongoDB);
+
+            services.AddScoped<IUserService, UserService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
