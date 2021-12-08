@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Lobsterapi.Helpers;
 using Lobsterapi.Services;
+using Lobsterapi.Data;
 
 namespace Lobsterapi
 {

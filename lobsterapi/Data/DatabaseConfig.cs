@@ -1,4 +1,4 @@
-namespace Lobsterapi.Helpers
+namespace Lobsterapi.Data
 {
     public class DatabaseConfig
     {

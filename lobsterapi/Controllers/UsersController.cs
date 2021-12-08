@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Lobsterapi.Models;
 using Lobsterapi.Services;
+using System.Threading.Tasks;
 
 namespace Lobsterapi.Controllers
 {
@@ -26,12 +27,12 @@ namespace Lobsterapi.Controllers
             return Ok(response);
         }
 
-        [Authorize]
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            var users = _userService.GetAll();
-            return Ok(users);
-        }
+        // [Authorize]
+        // [HttpGet]
+        // public IActionResult GetAll()
+        // {
+        //     var users = _userService.GetAll();
+        //     return Ok(users);
+        // }
     }
 }

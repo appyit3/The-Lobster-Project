@@ -1,4 +1,4 @@
-namespace Lobsterapi.Helpers
+namespace Lobsterapi.Data
 {
     public class MongoDBConfig
     {
@@ -9,7 +9,7 @@ namespace Lobsterapi.Helpers
         {
             get 
             {
-                return "mongodb://localhost:27017/lobsterdb";
+                return "mongodb://localhost:27017";
             }
         }
     }

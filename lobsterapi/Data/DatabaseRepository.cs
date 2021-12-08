@@ -5,7 +5,7 @@ using MongoDB.Bson;
 using System.Linq;
 using Lobsterapi.Entities;
 
-namespace Lobsterapi.Helpers
+namespace Lobsterapi.Data
 {
     public class DatabaseRepository : IDatabaseRepository
     {
@@ -14,9 +14,9 @@ namespace Lobsterapi.Helpers
         {
             _context = context;
         }
-        public IEnumerable<User> GetAllUsers()
+        public async Task<IEnumerable<User>> GetAllUsers()
         {
-            return  _context.Users.Find(_ => true).ToList();
+            return await _context.Users.Find(u => true).ToListAsync();
         }
     }
 }

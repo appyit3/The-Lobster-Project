@@ -8,14 +8,16 @@ using System.Security.Claims;
 using System.Text;
 using Lobsterapi.Entities;
 using Lobsterapi.Helpers;
+using Lobsterapi.Data;
 using Lobsterapi.Models;
+using System.Threading.Tasks;
 
 namespace Lobsterapi.Services
 {
     public interface IUserService
     {
         AuthenticateResponse Authenticate(AuthenticateRequest model);
-        IEnumerable<User> GetAll();
+        // IEnumerable<User> GetAll();
         User GetById(int id);
     }
 
@@ -23,13 +25,11 @@ namespace Lobsterapi.Services
     {
         private readonly IDatabaseRepository _repo;
         private readonly AppSettings _appSettings;
-        List<User> _users;
 
         public UserService(IOptions<AppSettings> appSettings, IDatabaseRepository repo)
         {
             _appSettings = appSettings.Value;
             _repo = repo;
-            _users = repo.GetAllUsers().ToList();
         }
 
         //private List<User> _users = _dbContext.Users; 
@@ -40,25 +40,29 @@ namespace Lobsterapi.Services
 
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
         {
-            Console.WriteLine("first user - {0}", _users.First().Username);
-            var user = _users.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
+            //Console.WriteLine("first user - {0}", _users.First().Username);
+            var res = _repo.GetAllUsers().Result;
+            var user = res.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
             // return null if user not found
             if (user == null) return null;
 
             // authentication successful so generate jwt token
             var token = generateJwtToken(user);
 
+            //var result =  new AuthenticateResponse(user, token);
+            //return Task.FromResult(result);
             return new AuthenticateResponse(user, token);
         }
 
-        public IEnumerable<User> GetAll()
-        {
-            return _users;
-        }
+        // public IEnumerable<User> GetAll()
+        // {
+        //     return _users;
+        // }
 
         public User GetById(int id)
         {
-            return _users.FirstOrDefault(x => x.Id == id);
+            //return _users.FirstOrDefault(x => x.Id == id);
+            return  new User { Id = 1, Username = "test", Password = "test" };
         }
 
         // helper methods

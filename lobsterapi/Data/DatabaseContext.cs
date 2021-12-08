@@ -6,7 +6,7 @@ using Lobsterapi.Entities;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Lobsterapi.Helpers
+namespace Lobsterapi.Data
 {
     public interface IDatabaseContext
     {
@@ -19,11 +19,12 @@ namespace Lobsterapi.Helpers
 
         public DatabaseContext(MongoDBConfig config)
         {
-            var settings = MongoClientSettings.FromConnectionString(config.ConnectionString);
-            settings.SslSettings = new SslSettings() { EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12 };
-            var client = new MongoClient(settings);
-            _db = client.GetDatabase(config.Database);   
+            var client = new MongoClient(config.ConnectionString);
+            _db = client.GetDatabase(config.Database);  
+            Users = _db.GetCollection<User>("users");
+            SeedMongo.SeedUsers(Users);
         }
-        public IMongoCollection<User> Users => _db.GetCollection<User>("Users");
+
+        public IMongoCollection<User> Users { get; }
     }
 }
