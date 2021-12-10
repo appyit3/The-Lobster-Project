@@ -12,10 +12,17 @@ namespace Lobster.API.Data
             var client = new MongoClient(configuration.GetValue<string>("DatabaseSettings:ConnectionString"));
             var database = client.GetDatabase(configuration.GetValue<string>("DatabaseSettings:DatabaseName"));
 
-            Users = database.GetCollection<User>(configuration.GetValue<string>("DatabaseSettings:CollectionName"));
-            DatabaseSeed.SeedData(Users);
+            Users = database.GetCollection<User>("Users");
+            DatabaseSeed.SeedUsers(Users);
+
+            TreeNodes = database.GetCollection<TreeNode>("Nodes");
+            DatabaseSeed.SeedNodes(TreeNodes);
+
+            UserHistory = database.GetCollection<UserHistory>("History");
         }
 
         public IMongoCollection<User> Users { get; }
+        public IMongoCollection<TreeNode> TreeNodes { get; }
+        public IMongoCollection<UserHistory> UserHistory { get; set; }
     }
 }

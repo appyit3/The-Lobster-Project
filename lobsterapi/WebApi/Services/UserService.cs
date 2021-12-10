@@ -18,8 +18,7 @@ namespace Lobster.API.Services
     public interface IUserService
     {
         Task<AuthenticateResponse> Authenticate(AuthenticateRequest model);
-        // IEnumerable<User> GetAll();
-        User GetById(int id);
+        Task<User> GetById(int id);
     }
 
     public class UserService : IUserService
@@ -33,20 +32,18 @@ namespace Lobster.API.Services
             _repo = repo;
         }
 
-        //private List<User> _users = _dbContext.Users; 
-        // new List<User>
-        // {
-        //     new User { Id = 1, Username = "test", Password = "test" }
-        // };
-
         public async Task<AuthenticateResponse> Authenticate(AuthenticateRequest model)
         {
-            var Users = await _repo.GetUsers();
-            foreach(User userobj in Users){
-                Console.WriteLine(userobj.Username);
-            }
+            //var Users = await _repo.GetUsers();
+            // foreach(User userobj in Users){
+            //     Console.WriteLine(userobj.Username);
+            // }
 
-            var user = Users.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
+            //var user = Users.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
+
+            var users = await _repo.GetUser(model.Username, model.Password);
+            var user = users.FirstOrDefault();
+
             // return null if user not found
             if (user == null) return null;
 
@@ -59,19 +56,13 @@ namespace Lobster.API.Services
             //return new AuthenticateResponse(user, token);
         }
 
-        // public IEnumerable<User> GetAll()
-        // {
-        //     return _users;
-        // }
-
-        public User GetById(int id)
+        public async Task<User> GetById(int id)
         {
-            //return _users.FirstOrDefault(x => x.Id == Id);
-            return  new User { Id = 1, Username = "test", Password = "test" };
+            return await _repo.GetUser(id);
         }
 
-        // helper methods
 
+        //generate token
         private string generateJwtToken(User user)
         {
             // generate token that is valid for 7 days

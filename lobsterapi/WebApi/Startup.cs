@@ -53,9 +53,13 @@ namespace Lobster.API
             }
 
             app.UseRouting();
+            app.UsePathBase("/api");
 
+            // custom jwt auth middleware
+            app.UseMiddleware<JwtMiddleware>();
+            
             app.UseAuthorization();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();                

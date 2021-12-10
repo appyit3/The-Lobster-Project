@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Lobster.API.Services;
+using Lobster.API.Entities;
 
 namespace Lobster.API.Helpers
 {
@@ -26,15 +27,16 @@ namespace Lobster.API.Helpers
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
             if (token != null)
-                attachUserToContext(context, userService, token);
+                await attachUserToContext(context, userService, token);
 
             await _next(context);
         }
 
-        private void attachUserToContext(HttpContext context, IUserService userService, string token)
+        private async Task<User> attachUserToContext(HttpContext context, IUserService userService, string token)
         {
             try
             {
+                Console.WriteLine("attachuser");
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
                 tokenHandler.ValidateToken(token, new TokenValidationParameters
@@ -49,14 +51,18 @@ namespace Lobster.API.Helpers
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
                 var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
-
+                Console.WriteLine("userId {0}", userId);
                 // attach user to context on successful jwt validation
-                context.Items["User"] = userService.GetById(userId);
+                var user = await userService.GetById(userId);
+                Console.WriteLine("Username {0}", user.Username);
+                context.Items["User"] = user;
+                return await Task.FromResult(user);
             }
             catch
             {
                 // do nothing if jwt validation fails
                 // user is not attached to context so request won't have access to secure routes
+                return null;
             }
         }
     }

@@ -10,10 +10,10 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Lobstera.API.Controllers
+namespace Lobster.API.Controllers
 {
     [ApiController]
-    [Route("api/v1/[controller]")]
+    [Route("[controller]")]
     public class UserController : ControllerBase
     {
         private readonly IDatabaseRepository _repository;
@@ -26,6 +26,7 @@ namespace Lobstera.API.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [ProducesResponseType(typeof(IEnumerable<User>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {

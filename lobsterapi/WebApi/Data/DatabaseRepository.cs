@@ -42,6 +42,16 @@ namespace Lobster.API.Repositories
                             .ToListAsync();
         }
 
+        public async Task<IEnumerable<User>> GetUser(string name, string password)
+        {
+            FilterDefinition<User> filter = Builders<User>.Filter.Where(p => p.Username == name &&  p.Password == password);
+
+            return await _context
+                            .Users
+                            .Find(filter)
+                            .ToListAsync();
+        }
+
         public async Task CreateUser(User User)
         {
             await _context.Users.InsertOneAsync(User);
@@ -68,5 +78,14 @@ namespace Lobster.API.Repositories
             return deleteResult.IsAcknowledged
                 && deleteResult.DeletedCount > 0;
         }
+
+        public async Task<IEnumerable<TreeNode>> GetNodes(int StoryId)
+        {
+            return await _context
+                           .TreeNodes
+                           .Find(t => t.StoryId == StoryId)
+                           .ToListAsync();
+        }
+
     }
 }

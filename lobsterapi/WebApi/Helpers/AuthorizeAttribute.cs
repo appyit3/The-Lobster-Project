@@ -9,6 +9,7 @@ public class AuthorizeAttribute : Attribute, IAuthorizationFilter
 {
     public void OnAuthorization(AuthorizationFilterContext context)
     {
+        Console.WriteLine("Authorize");
         var user = (User)context.HttpContext.Items["User"];
         if (user == null)
         {
