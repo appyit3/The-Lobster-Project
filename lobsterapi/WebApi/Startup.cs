@@ -33,7 +33,7 @@ namespace Lobster.API
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IStoryService, StoryService>();
 
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Lobster.API", Version = "v1" });

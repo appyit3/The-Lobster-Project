@@ -33,7 +33,7 @@ services:
         depends_on:
             - lobsterdb
         ports:
-            - "8000:80"
+            - "27000:80"
         networks:
           - demo-network
 
