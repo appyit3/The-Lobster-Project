@@ -86,7 +86,6 @@ namespace Lobster.API.Data
                     Id= 1,
                     Name= "MCU",
                     Description= "Do you like aliens or humans?",
-                    ParentId=null,
                     ChildrenId = new int[2] { 2, 3 } 
                 },
                 new TreeNode()
@@ -95,7 +94,6 @@ namespace Lobster.API.Data
                     Id= 2,
                     Name= "Aliens",
                     Description= "Do you like aliens who are Gods?",
-                    ParentId=1,
                     ChildrenId = new int[2] { 4, 5 } 
                 },
                 new TreeNode()
@@ -104,7 +102,6 @@ namespace Lobster.API.Data
                     Id= 3,
                     Name= "Humans",
                     Description= "Do you like humans or superhumans",
-                    ParentId=2,
                     ChildrenId = new int[2] { 6, 7 } 
                 },
                 new TreeNode()
@@ -113,7 +110,6 @@ namespace Lobster.API.Data
                     Id= 4,
                     Name= "Yes",
                     Description= "Hammer or Dagger or Gungnir",
-                    ParentId=2,
                     ChildrenId = new int[3] { 8, 9, 10 } 
                 },
                 new TreeNode()
@@ -122,7 +118,6 @@ namespace Lobster.API.Data
                     Id= 5,
                     Name= "No",
                     Description= "Tree or Raccoon or Green",
-                    ParentId=2,
                     ChildrenId = new int[3] { 11, 12, 13 } 
                 },
                 new TreeNode()
@@ -131,7 +126,6 @@ namespace Lobster.API.Data
                     Id= 6,
                     Name= "Humans",
                     Description= "Arrows or Spider or Iron suit",
-                    ParentId=3,
                     ChildrenId = new int[3] { 14, 15, 16 } 
                 },
                 new TreeNode()
@@ -140,7 +134,6 @@ namespace Lobster.API.Data
                     Id= 7,
                     Name= "Superhumans",
                     Description= "US or England or Africa or Asia",
-                    ParentId=3,
                     ChildrenId = new int[4] { 17, 18, 19, 20 } 
                 },
                 new TreeNode()
@@ -149,7 +142,6 @@ namespace Lobster.API.Data
                     Id= 8,
                     Name= "Hammer",
                     Description= "THOR",
-                    ParentId=4,
                     ChildrenId = null
                 },
                 new TreeNode()
@@ -158,7 +150,6 @@ namespace Lobster.API.Data
                     Id= 9,
                     Name= "Dagger",
                     Description= "LOKI",
-                    ParentId=4,
                     ChildrenId = null 
                 },
                 new TreeNode()
@@ -167,7 +158,6 @@ namespace Lobster.API.Data
                     Id= 10,
                     Name= "Gungnir",
                     Description= "ODIN",
-                    ParentId=4,
                     ChildrenId = null 
                 },
                 new TreeNode()
@@ -176,7 +166,6 @@ namespace Lobster.API.Data
                     Id= 11,
                     Name= "Tree",
                     Description= "GROOT",
-                    ParentId=5,
                     ChildrenId = null 
                 },
                 new TreeNode()
@@ -185,7 +174,6 @@ namespace Lobster.API.Data
                     Id= 12,
                     Name= "Raccoon",
                     Description= "ROCKET RACOON",
-                    ParentId=5,
                     ChildrenId = null 
                 },
                 new TreeNode()
@@ -194,7 +182,6 @@ namespace Lobster.API.Data
                     Id= 13,
                     Name= "Green",
                     Description= "GAMORA",
-                    ParentId=5,
                     ChildrenId = null 
                 },
                 new TreeNode()
@@ -203,7 +190,6 @@ namespace Lobster.API.Data
                     Id= 14,
                     Name= "Arrows",
                     Description= "HAWKEYE",
-                    ParentId=6,
                     ChildrenId = null 
                 },
                 new TreeNode()
@@ -212,7 +198,6 @@ namespace Lobster.API.Data
                     Id= 15,
                     Name= "Spider",
                     Description= "BLACK WIDOW",
-                    ParentId=6,
                     ChildrenId = null 
                 },
                 new TreeNode()
@@ -221,7 +206,6 @@ namespace Lobster.API.Data
                     Id= 16,
                     Name= "Iron suit",
                     Description= "IRON MAN",
-                    ParentId=6,
                     ChildrenId = null 
                 },
                 new TreeNode()
@@ -230,7 +214,6 @@ namespace Lobster.API.Data
                     Id= 17,
                     Name= "US",
                     Description= "Captain America",
-                    ParentId=7,
                     ChildrenId = null 
                 },
                 new TreeNode()
@@ -239,7 +222,6 @@ namespace Lobster.API.Data
                     Id= 18,
                     Name= "England",
                     Description= "Dr. Strange",
-                    ParentId=7,
                     ChildrenId = null
                 },
                 new TreeNode()
@@ -248,7 +230,6 @@ namespace Lobster.API.Data
                     Id= 19,
                     Name= "Africa",
                     Description= "Black Panther",
-                    ParentId=7,
                     ChildrenId = null 
                 },
                 new TreeNode()
@@ -257,7 +238,6 @@ namespace Lobster.API.Data
                     Id= 20,
                     Name= "Asia",
                     Description= "Shaang Chi",
-                    ParentId=7,
                     ChildrenId = null 
                 }
             };

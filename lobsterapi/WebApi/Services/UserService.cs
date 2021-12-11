@@ -19,6 +19,7 @@ namespace Lobster.API.Services
     {
         Task<AuthenticateResponse> Authenticate(AuthenticateRequest model);
         Task<User> GetById(int id);
+        Task<IEnumerable<User>> GetUsers();
     }
 
     public class UserService : IUserService
@@ -34,13 +35,6 @@ namespace Lobster.API.Services
 
         public async Task<AuthenticateResponse> Authenticate(AuthenticateRequest model)
         {
-            //var Users = await _repo.GetUsers();
-            // foreach(User userobj in Users){
-            //     Console.WriteLine(userobj.Username);
-            // }
-
-            //var user = Users.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
-
             var users = await _repo.GetUser(model.Username, model.Password);
             var user = users.FirstOrDefault();
 
@@ -59,6 +53,11 @@ namespace Lobster.API.Services
         public async Task<User> GetById(int id)
         {
             return await _repo.GetUser(id);
+        }
+
+        public async Task<IEnumerable<User>> GetUsers()
+        {
+            return await _repo.GetUsers();
         }
 
 

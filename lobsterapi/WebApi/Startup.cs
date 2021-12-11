@@ -31,6 +31,7 @@ namespace Lobster.API
             services.AddScoped<IDatabaseContext, DatabaseContext>();
             services.AddScoped<IDatabaseRepository, DatabaseRepository>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IStoryService, StoryService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

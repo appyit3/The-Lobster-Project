@@ -44,39 +44,12 @@ namespace Lobster.API.Repositories
 
         public async Task<IEnumerable<User>> GetUser(string name, string password)
         {
-            FilterDefinition<User> filter = Builders<User>.Filter.Where(p => p.Username == name &&  p.Password == password);
+            FilterDefinition<User> filter = Builders<User>.Filter.Where(p => p.Username == name && p.Password == password);
 
             return await _context
                             .Users
                             .Find(filter)
                             .ToListAsync();
-        }
-
-        public async Task CreateUser(User User)
-        {
-            await _context.Users.InsertOneAsync(User);
-        }
-
-        public async Task<bool> UpdateUser(User User)
-        {
-            var updateResult = await _context
-                                        .Users
-                                        .ReplaceOneAsync(filter: g => g.Id == User.Id, replacement: User);
-
-            return updateResult.IsAcknowledged
-                    && updateResult.ModifiedCount > 0;
-        }
-
-        public async Task<bool> DeleteUser(int Id)
-        {
-            FilterDefinition<User> filter = Builders<User>.Filter.Eq(p => p.Id, Id);
-
-            DeleteResult deleteResult = await _context
-                                                .Users
-                                                .DeleteOneAsync(filter);
-
-            return deleteResult.IsAcknowledged
-                && deleteResult.DeletedCount > 0;
         }
 
         public async Task<IEnumerable<TreeNode>> GetNodes(int StoryId)
