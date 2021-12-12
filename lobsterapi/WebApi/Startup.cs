@@ -39,6 +39,15 @@ namespace Lobster.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Lobster.API", Version = "v1" });
             });
 
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin();
+                    });
+            });
+
             services.AddHealthChecks()
                     .AddMongoDb(Configuration["DatabaseSettings:ConnectionString"], "MongoDb Health", HealthStatus.Degraded);
         }
@@ -53,17 +62,21 @@ namespace Lobster.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Lobster.API v1"));
             }
 
+            app.UseCors(builder =>
+            {
+                builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+            });
             app.UseRouting();
             app.UsePathBase("/api");
 
             // custom jwt auth middleware
             app.UseMiddleware<JwtMiddleware>();
-            
+
             app.UseAuthorization();
-            
+
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();                
+                endpoints.MapControllers();
                 endpoints.MapHealthChecks("/hc", new HealthCheckOptions()
                 {
                     Predicate = _ => true,
