@@ -8,13 +8,12 @@ import { User } from 'src/models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-    //private dummy: User = { Id: 0, Username: "dummy", Password: "dummy", token: "" };
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
 
     constructor(private http: HttpClient) {
         console.log('auth service');
-        var user = { Id: 0, Username: "dummy", Password: "dummy", token: "" };
+        var user = { Id: 0, Username: "Login", Password: "Login", token: "" };
         if(localStorage.getItem('currentUser')){
             this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser') ?? ""));
         }

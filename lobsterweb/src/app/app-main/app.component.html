@@ -1,6 +1,30 @@
-<!-- Toolbar -->
+<div class="container-fluid">
+    <div class="w-100 d-flex justify-content-between bg-light">
+        <div><i class="pi pi-github" style="font-size: 2rem"></i> + 
+            <i class="pi pi-prime" style="font-size: 2rem"></i>
+        </div>
+        <div>
+            <h2>The lobster project</h2>
+        </div>
+        <div><i class="pi pi-user" style="font-size: 2rem"></i> {{currentUser.Username}}</div>
+    </div>
 
-<button style="padding: 20px; color: white; background-color: green;" routerLink="story">Story</button>
-<button style="padding: 20px; color: white; background-color: blue;" routerLink="history">History</button>
-<br>
-<router-outlet></router-outlet>
+    <nav class="navbar navbar-expand-lg navbar-light bg-warning mb-2">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Lobster</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link active" aria-current="page" routerLink="story" href="#">Story</a>
+                    <a class="nav-link" routerLink="history" href="#">History</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div>
+        <router-outlet></router-outlet>
+    </div>
+</div>
