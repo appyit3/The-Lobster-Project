@@ -3,19 +3,22 @@
         <div class="cloumn">
 
             <div class="d-flex justify-content-center mb-2">
-                <div class="col-md-2 col-sm-6"><label for="username">Username</label></div>
-                <div class="col-md-10 col-sm-6"><input type="text" id="username" pInputText [(ngModel)]="username"></div>
+                <div class="col-sm-6"><label for="username">Username</label></div>
+                <div class="col-sm-6"><input type="text" id="username" pInputText [(ngModel)]="username">
+                </div>
             </div>
 
             <div class="d-flex justify-content-center mb-2">
-                <div class="col-md-2 col-sm-6"><label for="password">Password</label></div>
-                <div class="col-md-10 col-sm-6"><p-password [(ngModel)]="password" id="password" [feedback]="false"></p-password></div>
+                <div class="col-sm-6"><label for="password">Password</label></div>
+                <div class="col-sm-6">
+                    <p-password [(ngModel)]="password" id="password" [feedback]="false"></p-password>
+                </div>
             </div>
 
             <div class="d-flex justify-content-center">
-                <div class="col-md-2 col-sm-6"></div>
-                <div class="col-md-10 col-sm-6"><button pButton pRipple type="button" label="Login" class="p-button-secondary"
-                    (click)="submitLogin()"></button></div>
+                <div class="col-6"></div>
+                <div class="col-6"><button type="button" class="btn btn-warning"
+                        (click)="submitLogin()">Login</button></div>
             </div>
         </div>
     </div>

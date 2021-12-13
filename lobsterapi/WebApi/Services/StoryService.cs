@@ -18,6 +18,7 @@ namespace Lobster.API.Services
     public interface IStoryService
     {
         Task<Story> GetStory(int StoryId);
+        Task CreateHistory(UserHistory hist);
     }
 
     public class StoryService : IStoryService
@@ -50,19 +51,24 @@ namespace Lobster.API.Services
 
         }
 
+        public async Task CreateHistory(UserHistory hist)
+        {
+            await _repo.CreateHistory(hist);
+        }
+
         //Create story graph through recursion. Each tree node will map to a storynode and we'll do parent and child mappings
         private async Task<StoryNode> FillStoryWithNodes(StoryNode parentNode, TreeNode tnode, IEnumerable<TreeNode> nodes)
         {
             //mapping treenode to a new story node
             StoryNode stonode = new StoryNode(tnode.Id, tnode.Name, tnode.Description);
             
-            //mapping parent to child
+            //mapping parent to child - Not doing this. It results in cyclic reference which causes issue during serialization
             //stonode.ParentNode = parentNode;
             
             //mapping child to parent
             if(parentNode != null)
             {
-                parentNode.ChildNodes.Add(stonode.Id, stonode);
+                parentNode.ChildNodes.Add(stonode);
             }
 
             //creating children through recursion
@@ -74,10 +80,6 @@ namespace Lobster.API.Services
                     TreeNode tcnode = nodes.FirstOrDefault(x => x.Id == childId);
                     await FillStoryWithNodes(stonode, tcnode, nodes);
                 }
-            }
-            else
-            {
-                stonode.ChildNodes = null;
             }
 
             return await Task.FromResult(stonode);

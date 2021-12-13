@@ -10,8 +10,8 @@ namespace Lobster.API.Entities
         [BsonRepresentation(BsonType.ObjectId)]
         public ObjectId _id { get; set; }
         
-        public int Id { get; set; }
-        public string UserId { get; set; }
-        public TreeNode SelectedNode { get; set; }
+        public int StoryId { get; set; }
+        public int UserId { get; set; }
+        public int[] SelectedNodes { get; set; }
     }
 }

@@ -35,11 +35,11 @@ namespace Lobster.API.Services
 
         public async Task<AuthenticateResponse> Authenticate(AuthenticateRequest model)
         {
-            var users = await _repo.GetUser(model.Username, model.Password);
+            var users = await _repo.GetUserByName(model.Username);
             var user = users.FirstOrDefault();
 
             // return null if user not found
-            if (user == null) return null;
+            if ((user == null) || (user.Password != model.Password)) return null;
 
             // authentication successful so generate jwt token
             var token = generateJwtToken(user);

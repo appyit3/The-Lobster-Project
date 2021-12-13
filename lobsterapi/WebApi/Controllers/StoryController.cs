@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace Lobster.API.Controllers
 {
@@ -24,7 +25,7 @@ namespace Lobster.API.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         [ProducesResponseType(typeof(Story), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Story>> GetStory()
         {
@@ -32,5 +33,14 @@ namespace Lobster.API.Controllers
             return Ok(story);
         }
 
+        // POST Story/createhistory
+        [HttpPost("createhistory")]
+        public async Task<ActionResult> CreateHistory([FromBody] UserHistory hist)
+        {
+            var user = (User)HttpContext.Items["User"];
+            hist.UserId = user.Id;
+            await _storyService.CreateHistory(hist);
+            return Ok();
+        }
     }
 }

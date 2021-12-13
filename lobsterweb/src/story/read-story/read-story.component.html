@@ -1,0 +1,15 @@
+<div class="container-fluid">
+    <div class="card cardwidth cursor-hand">
+        <div class="card-body">
+            <h5 class="card-title mb-2">{{story.Name}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{selectedNode.Name}}</h6>
+            <p *ngIf="!selectedNode.ChildNodes.length" class="card-text">Answer: </p>
+            <p class="card-text">{{selectedNode.Description}}</p>
+            <div *ngFor="let ChildNode of selectedNode.ChildNodes" class="btn btn-warning m-2"
+                (click)="getNextNode(ChildNode)">{{ChildNode.Name}}</div>
+
+            <div *ngIf="!selectedNode.ChildNodes.length" class="btn btn-primary"
+                (click)="getSelectedPath()">Submit</div>
+        </div>
+    </div>
+</div>

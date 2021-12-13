@@ -24,6 +24,7 @@ namespace Lobster.API.Helpers
 
         public async Task Invoke(HttpContext context, IUserService userService)
         {
+            Console.WriteLine("invoke");
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
             if (token != null)

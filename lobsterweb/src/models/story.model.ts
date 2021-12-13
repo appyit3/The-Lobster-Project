@@ -2,7 +2,7 @@ export class StoryNode {
     public Id: number;
     public Name: string;
     public Description: string;
-    public ChildNodes: { [key: number]: Story; }[] = [];
+    public ChildNodes: StoryNode[] = [];
 }
 
 export class Story

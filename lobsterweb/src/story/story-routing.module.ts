@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { StoryComponent } from './story.component';
+import { StoryComponent } from './select-story/story.component';
 
 const storyRoutes: Routes =
     [

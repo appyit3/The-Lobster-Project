@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Lobster.API
 {
@@ -27,12 +28,10 @@ namespace Lobster.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
-
             services.AddScoped<IDatabaseContext, DatabaseContext>();
             services.AddScoped<IDatabaseRepository, DatabaseRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IStoryService, StoryService>();
-
             services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
             services.AddSwaggerGen(c =>
             {

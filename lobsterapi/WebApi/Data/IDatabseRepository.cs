@@ -11,8 +11,8 @@ namespace Lobster.API.Repositories
         Task<IEnumerable<User>> GetUsers();
         Task<User> GetUser(int Id);
         Task<IEnumerable<User>> GetUserByName(string name);
-        Task<IEnumerable<User>> GetUser(string name, string password);
-
+        //Task<IEnumerable<User>> GetUser(string name, string password);
         Task<IEnumerable<TreeNode>> GetNodes(int StoryId);
+        Task CreateHistory(UserHistory hist);
     }
 }
