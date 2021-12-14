@@ -2,7 +2,7 @@
 
 <div class="text-center"><h4>{{story ? story.Name : 'Story'}}</h4></div>
  
-<p-organizationChart [value]="arrTreeNode" expanded="true">
+<p-organizationChart [value]="arrTreeNode">
     <ng-template let-node pTemplate="default">
         <div class="bg-warning text-white">
             <h5 class="card-title mb-2">{{node.data ? node.data.Id : 'Id'}}</h5>

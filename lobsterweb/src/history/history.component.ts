@@ -63,6 +63,7 @@ export class HistoryComponent implements OnInit {
     const treeMap = (inputTree: StoryNode[]): TreeNode[] =>
       inputTree.map((t) => ({
         data: { Id: t.Id, Name: t.Name, Description: t.Description },
+        expanded: true,
         children: treeMap(t.ChildNodes),
       }));
 
