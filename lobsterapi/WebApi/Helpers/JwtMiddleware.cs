@@ -26,7 +26,7 @@ namespace Lobster.API.Helpers
         {
             Console.WriteLine("invoke");
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-
+            Console.WriteLine("token: {0}", token);
             if (token != null)
                 await attachUserToContext(context, userService, token);
 

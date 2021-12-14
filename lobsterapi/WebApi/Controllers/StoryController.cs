@@ -25,7 +25,7 @@ namespace Lobster.API.Controllers
         }
 
         [HttpGet]
-        //[Authorize]
+        [Authorize]
         [ProducesResponseType(typeof(Story), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Story>> GetStory()
         {
@@ -33,8 +33,19 @@ namespace Lobster.API.Controllers
             return Ok(story);
         }
 
+        [HttpGet("gethistory")]
+        [Authorize]
+        [ProducesResponseType(typeof(Story), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<IEnumerable<UserHistory>>> GetHistory()
+        {
+            var user = (User)HttpContext.Items["User"];
+            var lstHistory = await _storyService.GetUserHistory(user.Id);
+            return Ok(lstHistory);
+        }
+
         // POST Story/createhistory
         [HttpPost("createhistory")]
+        [Authorize]
         public async Task<ActionResult> CreateHistory([FromBody] UserHistory hist)
         {
             var user = (User)HttpContext.Items["User"];

@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app-main/app.component';
-import { AuthGuard } from 'src/helpers/auth.guard';
-import { AuthenticationService } from 'src/helpers/authentication.service';
+import { JwtInterceptor } from 'src/helpers/jwt.interceptor';
+import { ErrorInterceptor } from 'src/helpers/error.interceptor';
 import "bootstrap";
 
 @NgModule({
@@ -20,7 +20,8 @@ import "bootstrap";
     FormsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

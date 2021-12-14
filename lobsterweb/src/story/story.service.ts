@@ -4,16 +4,35 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Story } from 'src/models/story.model';
 import { UserHistory } from 'src/models/userhistory.model';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class StoryService {
-    constructor(private http: HttpClient) { }
+  private storySubject: BehaviorSubject<Story>;
+  public story: Observable<Story>;
 
-    getStory() {
-        return this.http.get<Story>(`${environment.apiUrl}/Story`);
-    }
+  constructor(private http: HttpClient) {
+    this.storySubject = new BehaviorSubject<Story>(new Story());
+    this.story = this.storySubject.asObservable();
+  }
 
-    submitStory(params: UserHistory) {
-        return this.http.post<any>(`${environment.apiUrl}/Story/createhistory`, params);
-    }
+  public get storyValue(): Story | null {
+    return this.storySubject.value;
+  }
+
+  getStory() {
+    return this.http.get<Story>(`${environment.apiUrl}/Story`).pipe(
+      map((res) => {
+        this.storySubject.next(res);
+        return res;
+      })
+    );
+  }
+
+  submitStory(params: UserHistory) {
+    return this.http.post<any>(
+      `${environment.apiUrl}/Story/createhistory`,
+      params
+    );
+  }
 }

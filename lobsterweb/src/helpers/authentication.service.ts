@@ -12,8 +12,7 @@ export class AuthenticationService {
     public currentUser: Observable<User>;
 
     constructor(private http: HttpClient) {
-        console.log('auth service');
-        var user = { Id: 0, Username: "Login", Password: "Login", token: "" };
+        var user = { Id: 0, Username: "Login", Password: "Login", Token: "" };
         if(localStorage.getItem('currentUser')){
             this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser') ?? ""));
         }
@@ -33,7 +32,6 @@ export class AuthenticationService {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('currentUser', JSON.stringify(user));
                 this.currentUserSubject.next(user);
-                console.log('current user subject', this.currentUserSubject);
                 return user;
             }));
     }

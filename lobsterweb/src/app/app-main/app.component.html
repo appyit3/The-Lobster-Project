@@ -1,12 +1,13 @@
 <div class="container-fluid">
     <div class="w-100 d-flex justify-content-between bg-light">
-        <div><i class="pi pi-github" style="font-size: 2rem"></i> + 
+        <div><i class="pi pi-github" style="font-size: 2rem"></i> +
             <i class="pi pi-prime" style="font-size: 2rem"></i>
         </div>
         <div>
             <h2>The lobster project</h2>
         </div>
-        <div><i class="pi pi-user" style="font-size: 2rem"></i> {{currentUser.Username}}</div>
+        <div><i class="pi pi-user" style="font-size: 2rem"></i>{{currentUser.Username}}<i
+                class="pi pi-power-off cursor-hand" style="font-size: 2rem" (click)="logout()"></i></div>
     </div>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-warning mb-2">

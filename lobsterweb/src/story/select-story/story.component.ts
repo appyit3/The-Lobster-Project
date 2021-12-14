@@ -26,7 +26,6 @@ export class StoryComponent implements OnInit, OnDestroy {
     this.storyService.getStory().subscribe({
       next: (result) => {
         this.stories.push(result);
-        console.log(result);
       },
       error: (err) => console.error(err),
       complete: () => console.info('story complete'),
@@ -48,7 +47,6 @@ export class StoryComponent implements OnInit, OnDestroy {
         }
         this.storyService.submitStory(userHist).subscribe({
           next: (result) => {
-            console.log(result);
           },
           error: (err) => console.error(err),
           complete: () => console.info('hist complete'),

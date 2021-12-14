@@ -20,7 +20,6 @@ export class AuthGuard implements CanActivate, CanLoad {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        console.log("canactivate");
         return this.canDoSomething();
     }
 
@@ -30,7 +29,6 @@ export class AuthGuard implements CanActivate, CanLoad {
 
     canDoSomething() {
         //const currentUser = this.authenticationService.currentUserValue;
-        console.log(this.currentUser);
         if (this.currentUser && this.currentUser.Id !== 0) {
             // logged in so return true
             return true;
@@ -38,7 +36,6 @@ export class AuthGuard implements CanActivate, CanLoad {
 
         // not logged in so redirect to login page
         this.router.navigate(['login']);
-        console.log("after navigate");
         return false;
     }
 }

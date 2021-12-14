@@ -4,21 +4,22 @@ import { StoryRoutingModule } from './story-routing.module';
 import { StoryComponent } from './select-story/story.component';
 import { ReadstoryComponent } from './read-story/read-story.component';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
-import { StoryService } from 'src/story/story.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from 'src/helpers/jwt.interceptor';
+import { ErrorInterceptor } from 'src/helpers/error.interceptor';
 
 @NgModule({
-  declarations: [
-    StoryComponent,
-    ReadstoryComponent
-  ],
+  declarations: [StoryComponent, ReadstoryComponent],
   imports: [
     CommonModule,
     StoryRoutingModule,
     DynamicDialogModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  providers: [ StoryService ],
-  entryComponents: [ ReadstoryComponent ]
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
+  entryComponents: [ReadstoryComponent],
 })
-export class StoryModule { }
+export class StoryModule {}

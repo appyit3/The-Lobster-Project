@@ -19,6 +19,7 @@ namespace Lobster.API.Services
     {
         Task<Story> GetStory(int StoryId);
         Task CreateHistory(UserHistory hist);
+        Task<IEnumerable<UserHistory>> GetUserHistory(int userId);
     }
 
     public class StoryService : IStoryService
@@ -54,6 +55,11 @@ namespace Lobster.API.Services
         public async Task CreateHistory(UserHistory hist)
         {
             await _repo.CreateHistory(hist);
+        }
+
+        public async Task<IEnumerable<UserHistory>> GetUserHistory(int userId)
+        {
+            return await _repo.GetUserHistory(userId);
         }
 
         //Create story graph through recursion. Each tree node will map to a storynode and we'll do parent and child mappings

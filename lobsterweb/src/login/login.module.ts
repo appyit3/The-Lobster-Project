@@ -7,7 +7,9 @@ import { PasswordModule } from "primeng/password";
 import { ButtonModule } from "primeng/button";
 import { FormsModule } from '@angular/forms';
 import { AuthenticationService } from 'src/helpers/authentication.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from 'src/helpers/jwt.interceptor';
+import { ErrorInterceptor } from 'src/helpers/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     HttpClientModule
   ],
-  providers: []
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }]
 })
 export class LoginModule { }
