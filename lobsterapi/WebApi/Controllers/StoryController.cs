@@ -18,10 +18,12 @@ namespace Lobster.API.Controllers
     public class StoryController : ControllerBase
     {
         private IStoryService _storyService;
+        private readonly ILogger<StoryController> _logger;
 
-        public StoryController(IStoryService storyService)
+        public StoryController(IStoryService storyService, ILogger<StoryController> logger)
         {
             _storyService = storyService;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -40,6 +42,7 @@ namespace Lobster.API.Controllers
         {
             var user = (User)HttpContext.Items["User"];
             var lstHistory = await _storyService.GetUserHistory(user.Id);
+            _logger.LogInformation($"Getting history for user {user.Username}");
             return Ok(lstHistory);
         }
 

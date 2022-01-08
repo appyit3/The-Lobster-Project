@@ -12,6 +12,10 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Http;
+// using Serilog;
+// using Serilog.Sinks.Elasticsearch; 
+// using System;
+// using System.Reflection;
 
 namespace Lobster.API
 {
@@ -54,6 +58,7 @@ namespace Lobster.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -82,6 +87,20 @@ namespace Lobster.API
                     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
                 });
             });
+
+            // Log.Logger = new LoggerConfiguration()
+            //     .Enrich.FromLogContext()
+            //     .Enrich.WithMachineName()
+            //     .WriteTo.Debug()
+            //     .WriteTo.Console()
+            //     .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(Configuration["ElasticConfiguration:Uri"]))
+            //     {
+            //         AutoRegisterTemplate = true,
+            //         IndexFormat = $"{Assembly.GetExecutingAssembly().GetName().Name.ToLower().Replace(".", "-")}-{environment?.ToLower().Replace(".", "-")}-{DateTime.UtcNow:yyyy-MM}"
+            //     })
+            //     .Enrich.WithProperty("Environment", environment)
+            //     .ReadFrom.Configuration(Configuration)
+            //     .CreateLogger();
         }
     }
 }
